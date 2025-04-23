@@ -1,26 +1,24 @@
-import { useState } from "react"
+import { useState,JSX } from "react"
 import Square from "./Square"
 
 type BoardProps ={
     xIsNext:boolean;
-    square:Array<string|null>
-    onPlay:()=>void;
+    squares:Array<string|null>
+    onPlay: (nextSquares: (string | null)[]) => void;
   }
-export const Board =({ xIsNext, squares, onPlay }):JSX.Element=>{
-    const [xIsNext, setXIsNext] = useState(true);
-    const [squares,setSquares] = useState<Array<string | null>>(Array(9).fill(null));
+export const Board =({ xIsNext, squares, onPlay }:BoardProps):JSX.Element=>{
+ 
     const handleClick = (i:any)=>{
-        if (calculateWinner(squares)||squares[i]){
+        if (calculateWinner(squares) || squares[i]) {
             return;
-        }
-        const nextsquare = squares.slice();
-        if(xIsNext){
-            nextsquare[i]="X";
-        }else{
-            nextsquare[i]="O"
-        }
-        setSquares(nextsquare)
-        setXIsNext(!xIsNext)
+          }
+          const nextSquares = squares.slice();
+          if (xIsNext) {
+            nextSquares[i] = 'X';
+          } else {
+            nextSquares[i] = 'O';
+          }
+          onPlay(nextSquares);
     }
     const winner = calculateWinner(squares);
     let status;

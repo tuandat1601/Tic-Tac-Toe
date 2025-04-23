@@ -15,7 +15,7 @@ export const Game =():JSX.Element=>{
         setCurrentMove(nextMove);
       }
     
-      const moves = history.map((currentSquares, move) => {
+      const moves = history.map((squares, move) => {
         let description;
         if (move > 0) {
           description = 'Go to move #' + move;
@@ -39,7 +39,7 @@ export const Game =():JSX.Element=>{
         <ol>{moves}</ol>
       </div>
     </div>
- 
+
         </>
     )
 }
